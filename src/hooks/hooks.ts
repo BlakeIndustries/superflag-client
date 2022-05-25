@@ -1,49 +1,89 @@
-import {useContext, useEffect, useState} from 'react';
-import {TIdentifyParams, IUseFeatureFlagHookProps, IFeatureFlagContext, TFeatureFlags} from '../types';
-import {DefaultFeatureFlagCacheKey, FeatureFlagReactContext} from '../constants';
+import { useContext, useEffect, useState } from 'react';
+import {
+  IFeatureFlagContext,
+  IUseFeatureFlagHookProps,
+  TFeatureFlags,
+  TIdentifyParams,
+} from '../types';
+import {
+  DefaultFeatureFlagCacheKey,
+  FeatureFlagReactContext,
+} from '../constants';
+import { Logger } from '../utils/logger';
+import { decodeBase64, encodeBase64 } from '../utils/helpers';
 
-function reduceFlagsToOnlyPositives<KEYS extends string>(flags?: TFeatureFlags<KEYS>) {
-  return Object.fromEntries(Object.entries(flags ?? {}).filter(([key, value]) => !!value));
+function reduceFlagsToOnlyPositives<KEYS extends string>(
+  flags?: TFeatureFlags<KEYS>
+) {
+  return Object.fromEntries(
+    Object.entries(flags ?? {}).filter(([key, value]) => !!value)
+  );
 }
 
-const encodeBase64 = btoa;
-const decodeBase64 = atob;
-
-function loadFlagsFromCache<KEYS extends string>(
-  cacheKey: string,
-  obfuscateCache?: boolean,
-  flagKeys?: KEYS[],
-): TFeatureFlags<KEYS> {
+function loadFlagsFromCache<KEYS extends string>({
+  cacheKey,
+  obfuscateCache,
+  flagKeys,
+  defaultValues,
+}: {
+  cacheKey: string;
+  obfuscateCache?: boolean;
+  flagKeys?: KEYS[];
+  defaultValues?: TFeatureFlags<KEYS>;
+}): TFeatureFlags<KEYS> {
+  let encodedCacheKey = obfuscateCache ? encodeBase64(cacheKey) : cacheKey;
+  const storageItem = localStorage.getItem(encodedCacheKey);
   return {
-    ...Object.fromEntries(flagKeys?.map(key => [key, false]) ?? []),
-    ...JSON.parse(
-      obfuscateCache ?
-        decodeBase64(localStorage.getItem(encodeBase64(
-            cacheKey)) ??
-          encodeBase64('{}')) :
-        localStorage.getItem(cacheKey) ?? '{}'),
+    ...Object.fromEntries(flagKeys?.map((key) => [key, false]) ?? []),
+    ...(storageItem
+      ? JSON.parse(obfuscateCache ? decodeBase64(storageItem) : storageItem)
+      : defaultValues ?? {}),
   };
 }
 
-export const useFeatureFlagProvider = <KEYS extends string, PROPS extends string>({
+export const useFeatureFlagProvider = <
+  KEYS extends string,
+  PROPS extends string
+>({
   flagSource,
   flagKeys,
   obfuscateCache,
   cacheKey = DefaultFeatureFlagCacheKey,
   refetchOnChange = [],
   skip,
+  defaultValues,
 }: IUseFeatureFlagHookProps<KEYS, PROPS>): IFeatureFlagContext<KEYS, PROPS> => {
   const [flags, setFlags] = useState<TFeatureFlags<KEYS>>(
-    loadFlagsFromCache(cacheKey, obfuscateCache, flagKeys));
+    loadFlagsFromCache({
+      cacheKey,
+      obfuscateCache,
+      defaultValues,
+      flagKeys,
+    })
+  );
   const [loading, setLoading] = useState(false);
-  const [lastIdentification, setLastIdentification] = useState<TIdentifyParams<PROPS>>();
+  const [lastIdentification, setLastIdentification] =
+    useState<TIdentifyParams<PROPS>>();
 
-  function refetchFlags(props: TIdentifyParams<PROPS>) {
-    setLoading(true);
-    flagSource(props).then(result => {
-      setFlags(result);
+  async function refetchFlags(props: TIdentifyParams<PROPS>) {
+    try {
+      setLoading(true);
+      await flagSource(props)
+        .then((result) => {
+          setFlags(result);
+          setLoading(false);
+        })
+        .catch((err) => {
+          Logger.error(err);
+          if (defaultValues) {
+            setFlags(defaultValues);
+          }
+          setLoading(false);
+        });
+    } catch (err) {
+      Logger.error(err);
       setLoading(false);
-    });
+    }
   }
 
   // refetch on change params
@@ -57,7 +97,10 @@ export const useFeatureFlagProvider = <KEYS extends string, PROPS extends string
   useEffect(() => {
     if (obfuscateCache) {
       // base64 encode the cache and remove extra props to obfuscate
-      localStorage.setItem(encodeBase64(cacheKey), encodeBase64(JSON.stringify(reduceFlagsToOnlyPositives(flags))));
+      localStorage.setItem(
+        encodeBase64(cacheKey),
+        encodeBase64(JSON.stringify(reduceFlagsToOnlyPositives(flags)))
+      );
     } else {
       localStorage.setItem(cacheKey, JSON.stringify(flags));
     }
@@ -74,7 +117,10 @@ export const useFeatureFlagProvider = <KEYS extends string, PROPS extends string
   };
 };
 
-export const useFeatureFlagContext = <KEYS extends string, PROPS extends string>(): IFeatureFlagContext<KEYS, PROPS> => {
+export const useFeatureFlagContext = <
+  KEYS extends string,
+  PROPS extends string
+>(): IFeatureFlagContext<KEYS, PROPS> => {
   return useContext(FeatureFlagReactContext);
 };
 export const useFeatureFlags = <KEYS extends string>(): TFeatureFlags<KEYS> => {

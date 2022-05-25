@@ -1,2 +1,5 @@
 dist
 build
+.pnp*
+.yarn
+coverage
