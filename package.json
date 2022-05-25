@@ -3,7 +3,8 @@
   "version": "0.0.1",
   "description": "",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
+    "test:coverage": "jest --collect-coverage",
     "build": "node ./build.js && tsc --emitDeclarationOnly --project tsconfig.json"
   },
   "files": [
@@ -28,14 +29,28 @@
   },
   "homepage": "https://github.com/BlakeIndustries/superflag-client-react#readme",
   "devDependencies": {
+    "@babel/core": "^7.18.0",
+    "@babel/preset-env": "^7.18.0",
+    "@babel/preset-typescript": "^7.17.12",
+    "@testing-library/dom": "^8.13.0",
+    "@testing-library/jest-dom": "^5.16.4",
+    "@testing-library/react": "^12.1.5",
+    "@types/jest": "^27.5.1",
+    "@types/react": "^16.14.26",
+    "@types/testing-library__jest-dom": "^5.14.3",
+    "@typescript-eslint/eslint-plugin": "^5.26.0",
+    "@typescript-eslint/parser": "^5.26.0",
     "@yarnpkg/esbuild-plugin-pnp": "^3.0.0-rc.6",
+    "babel-jest": "^28.1.0",
     "esbuild": "^0.14.39",
+    "eslint": "^8.16.0",
+    "jest": "^28.1.0",
+    "jest-environment-jsdom": "^28.1.0",
     "prettier": "^2.6.2",
+    "react": "^16.14.0",
+    "react-dom": "^16.14.0",
+    "ts-jest": "^28.0.3",
     "typescript": "^4.6.4"
   },
-  "packageManager": "yarn@3.2.1",
-  "dependencies": {
-    "react": "^18.1.0",
-    "react-dom": "^18.1.0"
-  }
+  "packageManager": "yarn@3.2.1"
 }

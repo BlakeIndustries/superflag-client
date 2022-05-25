@@ -282,3 +282,4 @@ fabric.properties
 
 build/
 dist/
+coverage/

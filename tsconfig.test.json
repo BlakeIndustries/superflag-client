@@ -1,4 +1,5 @@
 {
+  //  "extends": "./tsconfig.json",
   "compilerOptions": {
     /* Visit https://aka.ms/tsconfig.json to read more about this file */
 
@@ -37,9 +38,9 @@
     // "baseUrl": "./",                                  /* Specify the base directory to resolve non-relative module names. */
     // "paths": {},                                      /* Specify a set of entries that re-map imports to additional lookup locations. */
     // "rootDirs": [],                                   /* Allow multiple folders to be treated as one when resolving modules. */
-    "typeRoots": [
-      "./src/@types"
-    ],
+    //    "typeRoots": [
+    //      "./src/@types"
+    //    ],
     /* Specify multiple folders that act like `./node_modules/@types`. */
     // "types": [],
     /* Specify type package names to be included without being referenced in a source file. */
@@ -60,7 +61,7 @@
     // "sourceMap": true,                                /* Create source map files for emitted JavaScript files. */
     // "outFile": "build/",
     /* Specify a file that bundles all outputs into one JavaScript file. If `declaration` is true, also designates a file that bundles all .d.ts output. */
-    "outDir": "build/",
+    //    "outDir": "build/",
     /* Specify an output folder for all emitted files. */
     // "removeComments": true,                           /* Disable emitting comments. */
     // "noEmit": true,                                   /* Disable emitting files from a compilation. */
@@ -83,7 +84,7 @@
     /* Interop Constraints */
     // "isolatedModules": true,                          /* Ensure that each file can be safely transpiled without relying on other imports. */
     // "allowSyntheticDefaultImports": true,             /* Allow 'import x from y' when a module doesn't have a default export. */
-    "esModuleInterop": true,
+    //    "esModuleInterop": true,
     /* Emit additional JavaScript to ease support for importing CommonJS modules. This enables `allowSyntheticDefaultImports` for type compatibility. */
     // "preserveSymlinks": true,                         /* Disable resolving symlinks to their realpath. This correlates to the same flag in node. */
     "forceConsistentCasingInFileNames": true,
@@ -115,10 +116,28 @@
     // "skipDefaultLibCheck": true,                      /* Skip type checking .d.ts files that are included with TypeScript. */
     "skipLibCheck": true,
     /* Skip type checking all .d.ts files. */
-    "jsx": "react"
+    "jsx": "react",
+    /* Specify multiple folders that act like `./node_modules/@types`. */
+    "types": [
+      "@types/jest",
+      "@testing-library/jest-dom",
+      "node"
+    ],
+    "typeRoots": [
+    ],
+    /* JavaScript Support */
+    "allowJs": true,
+    "outDir": "build/",
+    /* Interop Constraints */
+    "isolatedModules": true,
+    /* Ensure that each file can be safely transpiled without relying on other imports. */
+    "allowSyntheticDefaultImports": true,
+    /* Allow 'import x from y' when a module doesn't have a default export. */
+    "esModuleInterop": true
   },
-  "exclude": [
+  "include": [
     "src/**/*.test.ts",
     "src/**/*.test.tsx"
-  ]
+  ],
+  "exclude": []
 }
