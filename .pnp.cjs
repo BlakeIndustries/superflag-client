@@ -45,6 +45,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@typescript-eslint/eslint-plugin", "virtual:71c49ebfbe8275e236d6f50572a7032431e6881f35d226e987edbb8996ff1aa0816c7a96e1847ddae0e2a75b18a124493a9e431bf9d49905e093cecf46bf9ae9#npm:5.26.0"],\
             ["@typescript-eslint/parser", "virtual:71c49ebfbe8275e236d6f50572a7032431e6881f35d226e987edbb8996ff1aa0816c7a96e1847ddae0e2a75b18a124493a9e431bf9d49905e093cecf46bf9ae9#npm:5.26.0"],\
             ["@yarnpkg/esbuild-plugin-pnp", "virtual:71c49ebfbe8275e236d6f50572a7032431e6881f35d226e987edbb8996ff1aa0816c7a96e1847ddae0e2a75b18a124493a9e431bf9d49905e093cecf46bf9ae9#npm:3.0.0-rc.6"],\
+            ["axios", "npm:0.27.2"],\
             ["babel-jest", "virtual:71c49ebfbe8275e236d6f50572a7032431e6881f35d226e987edbb8996ff1aa0816c7a96e1847ddae0e2a75b18a124493a9e431bf9d49905e093cecf46bf9ae9#npm:28.1.0"],\
             ["esbuild", "npm:0.14.39"],\
             ["eslint", "npm:8.16.0"],\
@@ -2959,6 +2960,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@typescript-eslint/eslint-plugin", "virtual:71c49ebfbe8275e236d6f50572a7032431e6881f35d226e987edbb8996ff1aa0816c7a96e1847ddae0e2a75b18a124493a9e431bf9d49905e093cecf46bf9ae9#npm:5.26.0"],\
             ["@typescript-eslint/parser", "virtual:71c49ebfbe8275e236d6f50572a7032431e6881f35d226e987edbb8996ff1aa0816c7a96e1847ddae0e2a75b18a124493a9e431bf9d49905e093cecf46bf9ae9#npm:5.26.0"],\
             ["@yarnpkg/esbuild-plugin-pnp", "virtual:71c49ebfbe8275e236d6f50572a7032431e6881f35d226e987edbb8996ff1aa0816c7a96e1847ddae0e2a75b18a124493a9e431bf9d49905e093cecf46bf9ae9#npm:3.0.0-rc.6"],\
+            ["axios", "npm:0.27.2"],\
             ["babel-jest", "virtual:71c49ebfbe8275e236d6f50572a7032431e6881f35d226e987edbb8996ff1aa0816c7a96e1847ddae0e2a75b18a124493a9e431bf9d49905e093cecf46bf9ae9#npm:28.1.0"],\
             ["esbuild", "npm:0.14.39"],\
             ["eslint", "npm:8.16.0"],\
@@ -3768,6 +3770,17 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/atob-npm-2.1.2-bcb583261e-dfeeeb7009.zip/node_modules/atob/",\
           "packageDependencies": [\
             ["atob", "npm:2.1.2"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["axios", [\
+        ["npm:0.27.2", {\
+          "packageLocation": "./.yarn/cache/axios-npm-0.27.2-dbe3a48aea-38cb754046.zip/node_modules/axios/",\
+          "packageDependencies": [\
+            ["axios", "npm:0.27.2"],\
+            ["follow-redirects", "virtual:dbe3a48aea1dd5649e16abaf23d4ae05582d2149e16141955113766a0f84f681baf358c77ddccfc82eb23e4ccc66c6c912df62a9c01f2a83f1842bf86cc297b1#npm:1.15.0"],\
+            ["form-data", "npm:4.0.0"]\
           ],\
           "linkType": "HARD"\
         }]\
@@ -5238,6 +5251,28 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/flatted-npm-3.2.5-0ee5a8875f-3c436e9695.zip/node_modules/flatted/",\
           "packageDependencies": [\
             ["flatted", "npm:3.2.5"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["follow-redirects", [\
+        ["npm:1.15.0", {\
+          "packageLocation": "./.yarn/cache/follow-redirects-npm-1.15.0-497d406c03-eaec81c3e0.zip/node_modules/follow-redirects/",\
+          "packageDependencies": [\
+            ["follow-redirects", "npm:1.15.0"]\
+          ],\
+          "linkType": "SOFT"\
+        }],\
+        ["virtual:dbe3a48aea1dd5649e16abaf23d4ae05582d2149e16141955113766a0f84f681baf358c77ddccfc82eb23e4ccc66c6c912df62a9c01f2a83f1842bf86cc297b1#npm:1.15.0", {\
+          "packageLocation": "./.yarn/__virtual__/follow-redirects-virtual-80191232fb/0/cache/follow-redirects-npm-1.15.0-497d406c03-eaec81c3e0.zip/node_modules/follow-redirects/",\
+          "packageDependencies": [\
+            ["follow-redirects", "virtual:dbe3a48aea1dd5649e16abaf23d4ae05582d2149e16141955113766a0f84f681baf358c77ddccfc82eb23e4ccc66c6c912df62a9c01f2a83f1842bf86cc297b1#npm:1.15.0"],\
+            ["@types/debug", null],\
+            ["debug", null]\
+          ],\
+          "packagePeers": [\
+            "@types/debug",\
+            "debug"\
           ],\
           "linkType": "HARD"\
         }]\

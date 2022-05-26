@@ -1,14 +1,14 @@
-import { createConstantFlagSource } from './defaultProviders';
+import { createConstantFlagSource } from './constantFlagSource';
 import { TFeatureFlags } from '../types';
 
-describe('defaultProviders tests', () => {
+describe('constantFlagSource tests', () => {
   const mockFlags: TFeatureFlags<'test1' | 'test2'> = {
     test1: true,
     test2: false,
   };
 
   test('should always return the passed constant', async () => {
-    let source = createConstantFlagSource(mockFlags);
+    const source = createConstantFlagSource(mockFlags);
     expect(await source({ coreIdentifier: 'asd@example.com' })).toEqual(
       mockFlags
     );

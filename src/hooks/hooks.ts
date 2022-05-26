@@ -123,9 +123,11 @@ export const useFeatureFlagContext = <
 >(): IFeatureFlagContext<KEYS, PROPS> => {
   return useContext(FeatureFlagReactContext);
 };
+
 export const useFeatureFlags = <KEYS extends string>(): TFeatureFlags<KEYS> => {
   return useContext(FeatureFlagReactContext).flags ?? {};
 };
-export const useFeatureFlag = (key: string): boolean => {
+
+export const useFeatureFlag = <KEYS extends string>(key: KEYS): boolean => {
   return !!useFeatureFlags()[key];
 };

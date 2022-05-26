@@ -1,2 +1,2 @@
 export * from './hooks';
-export * from './defaultProviders';
+export * from '../defaultSources/constantFlagSource';
