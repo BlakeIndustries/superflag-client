@@ -7,7 +7,7 @@
     "coverage-img": "yarn coverage-shield -r coverage/clover.xml -d static",
     "build:clean": "rm -rf build",
     "build": "yarn build:clean && node ./build.js && tsc --emitDeclarationOnly --project tsconfig.json",
-    "build:docs": "yarn test && yarn run coverage-img && yarn typedoc",
+    "build:docs": "yarn test && yarn run coverage-img && yarn typedoc && mkdir -p docs/static && cp static/coverage.svg docs/static",
     "publish-package": "yarn test && yarn build && yarn build:docs && npm publish"
   },
   "main": "build/index.js",
