@@ -3,3 +3,4 @@ build
 .pnp*
 .yarn
 coverage
+docs
