@@ -4,9 +4,12 @@
   "description": "",
   "scripts": {
     "test": "jest",
+    "coverage-img": "yarn coverage-shield -r coverage/clover.xml -d static",
+    "test-and-coverage": "yarn test && yarn run coverage-img && yarn build:docs",
     "build:clean": "rm -rf build",
     "build": "yarn build:clean && node ./build.js && tsc --emitDeclarationOnly --project tsconfig.json",
-    "publish-package": "yarn test && yarn build && npm publish"
+    "build:docs": "yarn build:clean && node ./build.js && tsc --emitDeclarationOnly --project tsconfig.json",
+    "publish-package": "yarn test && yarn build && yarn build:docs && npm publish"
   },
   "main": "build/index.js",
   "files": [
@@ -46,6 +49,7 @@
     "esbuild": "^0.14.39",
     "eslint": "^8.16.0",
     "jest": "^28.1.0",
+    "jest-coverage-shield": "^1.1.2",
     "jest-environment-jsdom": "^28.1.0",
     "prettier": "^2.6.2",
     "react": "^16.14.0",

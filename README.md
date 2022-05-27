@@ -1,5 +1,7 @@
 # @superflag/client-react
 
+![Coverage](static/coverage.svg)
+
 Superflag is an extensible feature flag library designed to support multiple
 tiers of feature flag infrastructure, from a simple constant to staged rollouts.
 It is designed to support multiple flag backends via an extensible plugin-style
@@ -15,7 +17,9 @@ includes support for Typescript out of the box.
 npm i @superflag/client-react
 ```
 
-## Usage
+## [API Reference](https://superflag-io.github.io/superflag-client-react/)
+
+## Usage Overview
 
 ### Configure Flag Sources (required)
 
