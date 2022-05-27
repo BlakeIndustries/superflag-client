@@ -1,11 +1,19 @@
-import { TFeatureFlags, TFeatureFlagSource } from '../../types';
+import {
+  IFeatureFlagSource,
+  TFeatureFlags,
+  TIdentifyParams,
+} from '../../types';
 
-/**
- * creates a flag source from a constant flag object
- * @param flags the constant flags to return
- */
-export const createConstantFlagSource = <KEYS extends string>(
-  flags?: TFeatureFlags<KEYS>
-): TFeatureFlagSource<KEYS, any> => {
-  return () => Promise.resolve(flags ?? {});
-};
+export class ConstantFlagSource<KEYS extends string>
+  implements IFeatureFlagSource<KEYS>
+{
+  /**
+   * Constructs a basic flag source that returns a constant
+   * @param flags the flags to return
+   */
+  constructor(private flags: TFeatureFlags<KEYS>) {}
+
+  fetchFlags(props: TIdentifyParams) {
+    return this.flags;
+  }
+}

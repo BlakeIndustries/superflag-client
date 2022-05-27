@@ -17,7 +17,7 @@ includes support for Typescript out of the box.
 npm i @superflag/client-react
 ```
 
-## [API Reference](https://superflag-io.github.io/superflag-client-react/)
+## [API Reference](https://superflag-io.github.io/superflag-client-react/modules.html)
 
 ## Usage Overview
 
@@ -37,7 +37,7 @@ provider configured with a constant value flag source:
 ```jsx
 // ...
 import { FeatureFlagProvider } from '@superflag/client-react';
-import { createConstantFlagSource } from '@superflag/client-react/defaultSources/constant';
+import { ConstantFlagSource } from '@superflag/client-react/defaultSources/constant';
 
 const App = () => {
   // ...
@@ -45,10 +45,12 @@ const App = () => {
   return (
     <IntlProvider>
       <FeatureFlagProvider
-        flagSource={createConstantFlagSource({
-          useV2ui: false,
-          useNewPaymentGateway: true,
-        })}>
+        flagSource={
+          new ConstantFlagSource({
+            useV2ui: false,
+            useNewPaymentGateway: true,
+          })
+        }>
         <div>
           <Header />
           <Content />
@@ -73,11 +75,11 @@ import {
   FeatureFlagProviderRaw,
   useFeatureFlagProvider,
 } from '@superflag/client-react';
-import { createConstantFlagSource } from '@superflag/client-react/defaultSources/constant';
+import { ConstantFlagSource } from '@superflag/client-react/defaultSources/constant';
 
 const App = () => {
   const flagContext = useFeatureFlagProvider({
-    flagSource: createConstantFlagSource({
+    flagSource: new ConstantFlagSource({
       useV2ui: false,
       useNewPaymentGateway: true,
     }),

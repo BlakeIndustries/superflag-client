@@ -41,6 +41,12 @@ function loadFlagsFromCache<KEYS extends string>({
   };
 }
 
+/**
+ * Helper hook that manages the feature flag state and source lifecycle. This
+ * hook calls the init and fetch functions of the source object
+ * @param arg0 the flag configuration
+ * @returns the feature flag context
+ */
 export const useFeatureFeatureFlagProvider = <
   KEYS extends string,
   PROPS extends string
@@ -64,24 +70,28 @@ export const useFeatureFeatureFlagProvider = <
   const [loading, setLoading] = useState(false);
   const [lastIdentification, setLastIdentification] =
     useState<TIdentifyParams<PROPS>>();
+  // call the init function on init
+  useEffect(() => {
+    try {
+      flagSource.init?.();
+    } catch (err) {
+      Logger.error('error occurred while calling init', err);
+    }
+  }, []);
 
   async function refetchFlags(props: TIdentifyParams<PROPS>) {
     try {
       setLoading(true);
-      await flagSource(props)
-        .then((result) => {
-          setFlags(result);
-          setLoading(false);
-        })
-        .catch((err) => {
-          Logger.error(err);
-          if (defaultValues) {
-            setFlags(defaultValues);
-          }
-          setLoading(false);
-        });
+
+      const result = await flagSource.fetchFlags(props);
+
+      setFlags(result);
+      setLoading(false);
     } catch (err) {
       Logger.error(err);
+      if (defaultValues) {
+        setFlags(defaultValues);
+      }
       setLoading(false);
     }
   }
@@ -117,6 +127,9 @@ export const useFeatureFeatureFlagProvider = <
   };
 };
 
+/**
+ * Fetches the feature flag context in its entirety from the React.Context
+ */
 export const useFeatureFlagContext = <
   KEYS extends string,
   PROPS extends string
@@ -124,10 +137,17 @@ export const useFeatureFlagContext = <
   return useContext(FeatureFlagReactContext);
 };
 
+/**
+ * Fetches the feature flag object from the feature flag context
+ */
 export const useFeatureFlags = <KEYS extends string>(): TFeatureFlags<KEYS> => {
   return useContext(FeatureFlagReactContext).flags ?? {};
 };
 
+/**
+ * Fetches a specific feature flag value from the feature flag context
+ * @param key the unique key of the flag to fetch
+ */
 export const useFeatureFlag = <KEYS extends string>(key: KEYS): boolean => {
   return !!useFeatureFlags()[key];
 };

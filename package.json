@@ -47,6 +47,7 @@
     "babel-jest": "^28.1.0",
     "esbuild": "^0.14.39",
     "eslint": "^8.16.0",
+    "eslint-plugin-jsdoc": "^39.3.2",
     "jest": "^28.1.0",
     "jest-coverage-shield": "^1.1.2",
     "jest-environment-jsdom": "^28.1.0",

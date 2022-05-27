@@ -1,4 +1,4 @@
-import { createConstantFlagSource } from './constantFlagSource';
+import { ConstantFlagSource } from './constantFlagSource';
 import { TFeatureFlags } from '../../types';
 
 describe('constantFlagSource tests', () => {
@@ -8,15 +8,15 @@ describe('constantFlagSource tests', () => {
   };
 
   test('should always return the passed constant', async () => {
-    const source = createConstantFlagSource(mockFlags);
-    expect(await source({ coreIdentifier: 'asd@example.com' })).toEqual(
-      mockFlags
-    );
-    expect(await source({ coreIdentifier: 'test123@example.com' })).toEqual(
-      mockFlags
-    );
-    expect(await source({ coreIdentifier: 'test234@example.com' })).toEqual(
-      mockFlags
-    );
+    const source = new ConstantFlagSource(mockFlags);
+    expect(
+      await source.fetchFlags({ coreIdentifier: 'asd@example.com' })
+    ).toEqual(mockFlags);
+    expect(
+      await source.fetchFlags({ coreIdentifier: 'test123@example.com' })
+    ).toEqual(mockFlags);
+    expect(
+      await source.fetchFlags({ coreIdentifier: 'test234@example.com' })
+    ).toEqual(mockFlags);
   });
 });

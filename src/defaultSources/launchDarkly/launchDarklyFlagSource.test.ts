@@ -1,6 +1,6 @@
 import { TFeatureFlags } from '../../types';
 import * as LDClient from 'launchdarkly-js-client-sdk';
-import { createLaunchDarklyFlagSource } from './launchDarklyFlagSource';
+import { LaunchDarklyFlagSource } from './launchDarklyFlagSource';
 
 jest.mock('launchdarkly-js-client-sdk');
 
@@ -26,10 +26,10 @@ describe('launchDarklyFlagSource tests', () => {
     clientMock.allFlags.mockReturnValue(mockFlags);
     const clientId = 'asd123';
     const mockUser = { coreIdentifier: 'asd@example.com', key: 'sdf234' };
-    const source = createLaunchDarklyFlagSource(clientId);
+    const source = new LaunchDarklyFlagSource(clientId);
 
     // run
-    expect(await source(mockUser)).toEqual(mockFlags);
+    expect(await source.fetchFlags(mockUser)).toEqual(mockFlags);
 
     // test
     expect(clientInitMock).toHaveBeenCalledWith(clientId, mockUser);

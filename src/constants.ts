@@ -1,6 +1,7 @@
 import React from 'react';
 import { IFeatureFlagContext } from './types';
 
+/** the default `localStorage` key to use when caching the resolved feature flags */
 export const DefaultFeatureFlagCacheKey = 'featureFlags';
 
 export const FeatureFlagReactContext = React.createContext<

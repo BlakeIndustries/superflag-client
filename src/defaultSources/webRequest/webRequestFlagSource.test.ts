@@ -1,10 +1,10 @@
 import { TFeatureFlags } from '../../types';
 import axios, { AxiosRequestConfig } from 'axios';
-import { createWebRequestFlagSource } from './webRequestFlagSource';
+import { WebRequestFlagSource } from './webRequestFlagSource';
 
 jest.mock('axios');
 
-describe('staticWebRequestFlagSource tests', () => {
+describe('WebRequestFlagSource tests', () => {
   let axiosMock: jest.Mock;
   const mockFlags: TFeatureFlags<'test1' | 'test2'> = {
     test1: true,
@@ -23,11 +23,11 @@ describe('staticWebRequestFlagSource tests', () => {
       method: 'GET',
       transformResponse: (data) => data,
     };
-    const source = createWebRequestFlagSource(requestArgs);
+    const source = new WebRequestFlagSource(requestArgs);
 
-    expect(await source({ coreIdentifier: 'asd@example.com' })).toEqual(
-      mockFlags
-    );
+    expect(
+      await source.fetchFlags({ coreIdentifier: 'asd@example.com' })
+    ).toEqual(mockFlags);
     expect(axiosMock).toHaveBeenCalledWith(requestArgs);
   });
 });
