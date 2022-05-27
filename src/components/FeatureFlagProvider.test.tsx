@@ -31,7 +31,7 @@ const FeatureFlagProviderTestChild: React.FC = () => {
 };
 
 describe('FeatureFlagProvider tests', () => {
-  const mockSource = jest.fn();
+  const mockSource = { fetchFlags: jest.fn() };
   const localStorageSpy = mockLocalStorage();
   const mockFlagOneTrue = {
     test1: true,
@@ -50,7 +50,7 @@ describe('FeatureFlagProvider tests', () => {
     test('should mock loading correctly with no cache', async () => {
       // setup
       const deferred = createDeferred<TFeatureFlags<MockFlags>>();
-      mockSource.mockReturnValue(deferred.promise);
+      mockSource.fetchFlags.mockReturnValue(deferred.promise);
       const res = render(
         <FeatureFlagProvider flagSource={mockSource}>
           <FeatureFlagProviderTestChild />
@@ -73,7 +73,7 @@ describe('FeatureFlagProvider tests', () => {
     test('should mock loading correctly with cache', async () => {
       // setup
       const deferred = createDeferred<TFeatureFlags<MockFlags>>();
-      mockSource.mockReturnValue(deferred.promise);
+      mockSource.fetchFlags.mockReturnValue(deferred.promise);
       localStorageSpy.getItem.mockReturnValue(JSON.stringify(mockFlagBothTrue));
 
       // run
@@ -94,7 +94,7 @@ describe('FeatureFlagProvider tests', () => {
     test('should mock loading correctly with defaultValues', async () => {
       // setup
       const deferred = createDeferred<TFeatureFlags<MockFlags>>();
-      mockSource.mockReturnValue(deferred.promise);
+      mockSource.fetchFlags.mockReturnValue(deferred.promise);
 
       // run
       const res = render(
@@ -118,7 +118,7 @@ describe('FeatureFlagProvider tests', () => {
     describe('inline', () => {
       test('should handle when no default or cache', async () => {
         // setup
-        mockSource.mockImplementation(() => {
+        mockSource.fetchFlags.mockImplementation(() => {
           throw new Error('mock error');
         });
 
@@ -135,7 +135,7 @@ describe('FeatureFlagProvider tests', () => {
 
       test('should handle when cache present', async () => {
         // setup
-        mockSource.mockImplementation(() => {
+        mockSource.fetchFlags.mockImplementation(() => {
           throw new Error('mock error');
         });
         localStorageSpy.getItem.mockReturnValue(
@@ -155,7 +155,7 @@ describe('FeatureFlagProvider tests', () => {
 
       test('should handle when default present', async () => {
         // setup
-        mockSource.mockImplementation(() => {
+        mockSource.fetchFlags.mockImplementation(() => {
           throw new Error('mock error');
         });
 
@@ -177,7 +177,7 @@ describe('FeatureFlagProvider tests', () => {
       test('should handle when no default or cache', async () => {
         // setup
         const deferred = createDeferred<TFeatureFlags<MockFlags>>();
-        mockSource.mockReturnValue(deferred.promise);
+        mockSource.fetchFlags.mockReturnValue(deferred.promise);
         const res = render(
           <FeatureFlagProvider flagSource={mockSource}>
             <FeatureFlagProviderTestChild />
@@ -196,7 +196,7 @@ describe('FeatureFlagProvider tests', () => {
       test('should handle when cache present', async () => {
         // setup
         const deferred = createDeferred<TFeatureFlags<MockFlags>>();
-        mockSource.mockReturnValue(deferred.promise);
+        mockSource.fetchFlags.mockReturnValue(deferred.promise);
         localStorageSpy.getItem.mockReturnValue(
           JSON.stringify(mockFlagBothTrue)
         );
@@ -219,7 +219,7 @@ describe('FeatureFlagProvider tests', () => {
       test('should handle when default present', async () => {
         // setup
         const deferred = createDeferred<TFeatureFlags<MockFlags>>();
-        mockSource.mockReturnValue(deferred.promise);
+        mockSource.fetchFlags.mockReturnValue(deferred.promise);
 
         // run
         const res = render(
@@ -244,7 +244,7 @@ describe('FeatureFlagProvider tests', () => {
     test('should obfuscate key and value and remove false flags', async () => {
       // setup
       const deferred = createDeferred<TFeatureFlags<MockFlags>>();
-      mockSource.mockReturnValue(deferred.promise);
+      mockSource.fetchFlags.mockReturnValue(deferred.promise);
 
       // run
       const res = render(
@@ -272,7 +272,7 @@ describe('FeatureFlagProvider tests', () => {
     test('should keep false flags when flagKeys is provided', async () => {
       // setup
       const deferred = createDeferred<TFeatureFlags<MockFlags>>();
-      mockSource.mockReturnValue(deferred.promise);
+      mockSource.fetchFlags.mockReturnValue(deferred.promise);
 
       // run
       const res = render(
@@ -301,7 +301,7 @@ describe('FeatureFlagProvider tests', () => {
   describe('refetch on change', () => {
     test('should refetch flags on change', async () => {
       // setup
-      mockSource.mockResolvedValue(mockFlagOneTrue);
+      mockSource.fetchFlags.mockResolvedValue(mockFlagOneTrue);
 
       // run
       const res = render(
@@ -315,7 +315,7 @@ describe('FeatureFlagProvider tests', () => {
         loading: false,
         ...mockFlagOneTrue,
       });
-      expect(mockSource).toBeCalledTimes(1);
+      expect(mockSource.fetchFlags).toBeCalledTimes(1);
       res.rerender(
         <FeatureFlagProvider flagSource={mockSource} refetchOnChange={[false]}>
           <FeatureFlagProviderTestChild />
@@ -323,13 +323,13 @@ describe('FeatureFlagProvider tests', () => {
       );
 
       // test
-      expect(mockSource).toBeCalledTimes(2);
+      expect(mockSource.fetchFlags).toBeCalledTimes(2);
     });
 
     test('should keep false flags when flagKeys is provided', async () => {
       // setup
       const deferred = createDeferred<TFeatureFlags<MockFlags>>();
-      mockSource.mockReturnValue(deferred.promise);
+      mockSource.fetchFlags.mockReturnValue(deferred.promise);
 
       // run
       const res = render(

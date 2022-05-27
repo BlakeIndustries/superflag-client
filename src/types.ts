@@ -13,6 +13,8 @@ export type TIdentifierFunction<PROPS extends string = any> = (
  * The working context of the feature flag system
  * @typeParam KEYS the union of all possible feature flag keys.
  *   E.g. `'useV2ui' | 'useNewPaymentGateway' | ...`
+ * @typeParam PROPS the union of all expected props on the user identifier object.
+ *   E.g. `'organization' | 'email' | ...`
  */
 export interface IFeatureFlagContext<
   KEYS extends string,
