@@ -166,6 +166,16 @@ const ShoppingCart = () => {
 };
 ```
 
+## Testing
+
+Superflag supports mocking flags for testing purposes in one of two ways:
+
+- For unit tests, `MockFeatureFlagProvider` can be used to mock the feature
+  flag values
+- For integration/e2e testing (live), one can swap out the `flagSource` when in
+  different environments. For example, one could switch a LaunchDarkly flag
+  source out for a constant flag source in testing/development environments
+
 ## Bugs & Contributions
 
 Please report any bugs to the Github issue tracker for this project. Any
