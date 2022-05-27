@@ -58,6 +58,7 @@
     "react-dom": "^16.14.0"
   },
   "dependencies": {
-    "axios": "^0.27.2"
+    "axios": "^0.27.2",
+    "launchdarkly-js-client-sdk": "^2.22.1"
   }
 }

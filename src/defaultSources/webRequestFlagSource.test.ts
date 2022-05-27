@@ -1,6 +1,6 @@
 import { TFeatureFlags } from '../types';
 import axios, { AxiosRequestConfig } from 'axios';
-import { createStaticWebRequestFlagSource } from './staticWebRequestFlagSource';
+import { createWebRequestFlagSource } from './webRequestFlagSource';
 
 jest.mock('axios');
 
@@ -23,7 +23,7 @@ describe('staticWebRequestFlagSource tests', () => {
       method: 'GET',
       transformResponse: (data) => data,
     };
-    const source = createStaticWebRequestFlagSource(requestArgs);
+    const source = createWebRequestFlagSource(requestArgs);
 
     expect(await source({ coreIdentifier: 'asd@example.com' })).toEqual(
       mockFlags

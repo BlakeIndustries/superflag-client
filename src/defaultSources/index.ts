@@ -1,2 +1,2 @@
 export * from './constantFlagSource';
-export * from './staticWebRequestFlagSource';
+export * from './webRequestFlagSource';
