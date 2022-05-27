@@ -1,6 +1,6 @@
 import React from 'react';
 import { render } from '@testing-library/react';
-import { MockFlagProvider } from './MockFlagProvider';
+import { MockFeatureFlagProvider } from './MockFeatureFlagProvider';
 import { FeatureFlagSwitch } from './FeatureFlagSwitch';
 
 const flagKeys = ['test1', 'test2'] as const;
@@ -11,14 +11,14 @@ describe('FeatureFlagSwitch tests', () => {
   test('should show contents when flag true', () => {
     // run
     const res = render(
-      <MockFlagProvider flags={{ test1: true }}>
+      <MockFeatureFlagProvider flags={{ test1: true }}>
         <FeatureFlagSwitch<MockFlags>
           flagKey="test1"
           whenTrue={<span data-testid="contents-true">Should show this</span>}
           whenFalse={
             <span data-testid="contents-false">Should hide this</span>
           }></FeatureFlagSwitch>
-      </MockFlagProvider>
+      </MockFeatureFlagProvider>
     );
 
     // test
@@ -29,14 +29,14 @@ describe('FeatureFlagSwitch tests', () => {
   test('should show contents when flag false', () => {
     // run
     const res = render(
-      <MockFlagProvider flags={{ test1: false }}>
+      <MockFeatureFlagProvider flags={{ test1: false }}>
         <FeatureFlagSwitch<MockFlags>
           flagKey="test1"
           whenTrue={<span data-testid="contents-true">Should show this</span>}
           whenFalse={
             <span data-testid="contents-false">Should hide this</span>
           }></FeatureFlagSwitch>
-      </MockFlagProvider>
+      </MockFeatureFlagProvider>
     );
 
     // test

@@ -10,7 +10,7 @@ export const FeatureFlagReactContext = React.createContext<
   loading: true,
   identify: () => {
     throw new Error(
-      'FlagProvider not initialized yet. Have you passed the parameters to the provider correctly?'
+      'FeatureFlagProvider not initialized yet. Have you passed the parameters to the provider correctly?'
     );
   },
 });

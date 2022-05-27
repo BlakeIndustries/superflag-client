@@ -2,7 +2,7 @@ import { IFeatureFlagContext } from '../types';
 import React, { PropsWithChildren } from 'react';
 import { FeatureFlagReactContext } from '../constants';
 
-export function MockFlagProvider<
+export function MockFeatureFlagProvider<
   KEYS extends string,
   PROPS extends string = any
 >({

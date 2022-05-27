@@ -3,9 +3,7 @@ export type TFeatureFlags<KEYS extends string> = Partial<Record<KEYS, boolean>>;
 export type TIdentifyParams<PROPS extends string> = Record<
   PROPS,
   string | boolean | number | undefined
-> & {
-  coreIdentifier: string;
-};
+>;
 
 export type TIdentifierFunction<PROPS extends string = any> = (
   props: TIdentifyParams<PROPS>

@@ -1,6 +1,6 @@
 import React from 'react';
 import { render } from '@testing-library/react';
-import { MockFlagProvider } from './MockFlagProvider';
+import { MockFeatureFlagProvider } from './MockFeatureFlagProvider';
 import { FeatureFlagGate } from './FeatureFlagGate';
 
 const flagKeys = ['test1', 'test2'] as const;
@@ -11,11 +11,11 @@ describe('FeatureFlagGate tests', () => {
   test('should show contents when flag true', () => {
     // run
     const res = render(
-      <MockFlagProvider flags={{ test1: true }}>
+      <MockFeatureFlagProvider flags={{ test1: true }}>
         <FeatureFlagGate<MockFlags> flagKey="test1">
           <span data-testid="contents">Should show this</span>
         </FeatureFlagGate>
-      </MockFlagProvider>
+      </MockFeatureFlagProvider>
     );
 
     // test
@@ -25,11 +25,11 @@ describe('FeatureFlagGate tests', () => {
   test('should hide contents when flag false', () => {
     // run
     const res = render(
-      <MockFlagProvider flags={{ test1: false }}>
+      <MockFeatureFlagProvider flags={{ test1: false }}>
         <FeatureFlagGate<MockFlags> flagKey="test1">
           <span data-testid="contents">Should hide this</span>
         </FeatureFlagGate>
-      </MockFlagProvider>
+      </MockFeatureFlagProvider>
     );
 
     // test

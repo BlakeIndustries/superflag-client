@@ -1,4 +1,4 @@
-import { TFeatureFlags } from '../types';
+import { TFeatureFlags } from '../../types';
 import axios, { AxiosRequestConfig } from 'axios';
 import { createWebRequestFlagSource } from './webRequestFlagSource';
 

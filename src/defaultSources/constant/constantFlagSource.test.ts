@@ -1,5 +1,5 @@
 import { createConstantFlagSource } from './constantFlagSource';
-import { TFeatureFlags } from '../types';
+import { TFeatureFlags } from '../../types';
 
 describe('constantFlagSource tests', () => {
   const mockFlags: TFeatureFlags<'test1' | 'test2'> = {

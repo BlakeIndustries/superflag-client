@@ -41,7 +41,7 @@ function loadFlagsFromCache<KEYS extends string>({
   };
 }
 
-export const useFeatureFlagProvider = <
+export const useFeatureFeatureFlagProvider = <
   KEYS extends string,
   PROPS extends string
 >({

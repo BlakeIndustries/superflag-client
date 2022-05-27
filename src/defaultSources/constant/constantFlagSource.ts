@@ -1,4 +1,4 @@
-import { TFeatureFlags, TFeatureFlagSource } from '../types';
+import { TFeatureFlags, TFeatureFlagSource } from '../../types';
 
 /**
  * creates a flag source from a constant flag object

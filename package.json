@@ -4,19 +4,20 @@
   "description": "",
   "scripts": {
     "test": "jest",
-    "test:coverage": "jest --collect-coverage",
-    "build": "node ./build.js && tsc --emitDeclarationOnly --project tsconfig.json"
+    "build:clean": "rm -rf build",
+    "build": "yarn build:clean && node ./build.js && tsc --emitDeclarationOnly --project tsconfig.json",
+    "publish-package": "yarn test && yarn build && npm publish"
   },
+  "main": "build/index.js",
   "files": [
-    "build/index.js",
-    "build/index.d.ts"
+    "build"
   ],
   "publishConfig": {
-    "registry": "https://npm.pkg.github.com/"
+    "access": "public"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/BlakeIndustries/superflag-client-react.git"
+    "url": "git+https://github.com/superflag-io/superflag-client-react.git"
   },
   "keywords": [
     "flag",
@@ -25,9 +26,9 @@
   "author": "Blake Stacks",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/BlakeIndustries/superflag-client-react/issues"
+    "url": "https://github.com/superflag-io/superflag-client-react/issues"
   },
-  "homepage": "https://github.com/BlakeIndustries/superflag-client-react#readme",
+  "homepage": "https://github.com/superflag-io/superflag-client-react#readme",
   "devDependencies": {
     "@babel/core": "^7.18.0",
     "@babel/preset-env": "^7.18.0",
@@ -54,8 +55,8 @@
   },
   "packageManager": "yarn@3.2.1",
   "peerDependencies": {
-    "react": "^16.14.0",
-    "react-dom": "^16.14.0"
+    "react": ">=16.8",
+    "react-dom": ">=16.8"
   },
   "dependencies": {
     "axios": "^0.27.2",

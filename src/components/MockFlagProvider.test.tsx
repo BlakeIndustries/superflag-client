@@ -1,7 +1,7 @@
 import React from 'react';
 import { useFeatureFlagContext, useFeatureFlags } from '../hooks/hooks';
 import { render } from '@testing-library/react';
-import { MockFlagProvider } from './MockFlagProvider';
+import { MockFeatureFlagProvider } from './MockFeatureFlagProvider';
 
 const flagKeys = ['test1', 'test2'] as const;
 
@@ -22,9 +22,9 @@ const MockProviderTestChild: React.FC = () => {
 describe('MockProvider tests', () => {
   test('should mock loading correctly', () => {
     const res = render(
-      <MockFlagProvider loading={true}>
+      <MockFeatureFlagProvider loading={true}>
         <MockProviderTestChild />
-      </MockFlagProvider>
+      </MockFeatureFlagProvider>
     );
     expect(res.getByTestId('loading-indicator')).toHaveTextContent(
       'loading:true'
@@ -33,14 +33,14 @@ describe('MockProvider tests', () => {
 
   test('should mock flags correctly alternate true', () => {
     let res = render(
-      <MockFlagProvider<typeof flagKeys[number]>
+      <MockFeatureFlagProvider<typeof flagKeys[number]>
         loading={false}
         flags={{
           test1: true,
           test2: false,
         }}>
         <MockProviderTestChild />
-      </MockFlagProvider>
+      </MockFeatureFlagProvider>
     );
     expect(res.getByTestId('loading-indicator')).toHaveTextContent(
       'loading:false'
@@ -52,14 +52,14 @@ describe('MockProvider tests', () => {
 
   test('should mock flags correctly both true', () => {
     let res = render(
-      <MockFlagProvider<typeof flagKeys[number]>
+      <MockFeatureFlagProvider<typeof flagKeys[number]>
         loading={false}
         flags={{
           test1: true,
           test2: true,
         }}>
         <MockProviderTestChild />
-      </MockFlagProvider>
+      </MockFeatureFlagProvider>
     );
     expect(res.getByTestId('loading-indicator')).toHaveTextContent(
       'loading:false'

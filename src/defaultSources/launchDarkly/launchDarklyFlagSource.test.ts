@@ -1,4 +1,4 @@
-import { TFeatureFlags } from '../types';
+import { TFeatureFlags } from '../../types';
 import * as LDClient from 'launchdarkly-js-client-sdk';
 import { createLaunchDarklyFlagSource } from './launchDarklyFlagSource';
 

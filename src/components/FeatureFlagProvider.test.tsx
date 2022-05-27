@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useFeatureFlagContext, useFeatureFlags } from '../hooks';
 import { render, RenderResult, waitFor } from '@testing-library/react';
-import { FlagProvider } from './FlagProvider';
+import { FeatureFlagProvider } from './FeatureFlagProvider';
 import { TFeatureFlags } from '../types';
 import { createDeferred, mockLocalStorage } from '../utils/helpers.util.test';
 import { encodeBase64 } from '../utils/helpers';
@@ -11,7 +11,7 @@ const flagKeys = ['test1', 'test2'] as const;
 type MockFlags = typeof flagKeys[number];
 const flagKeysMutable = [...flagKeys];
 
-const FlagProviderTestChild: React.FC = () => {
+const FeatureFlagProviderTestChild: React.FC = () => {
   const context = useFeatureFlagContext<MockFlags, any>();
   const flags = useFeatureFlags<MockFlags>();
 
@@ -30,7 +30,7 @@ const FlagProviderTestChild: React.FC = () => {
   );
 };
 
-describe('FlagProvider tests', () => {
+describe('FeatureFlagProvider tests', () => {
   const mockSource = jest.fn();
   const localStorageSpy = mockLocalStorage();
   const mockFlagOneTrue = {
@@ -52,9 +52,9 @@ describe('FlagProvider tests', () => {
       const deferred = createDeferred<TFeatureFlags<MockFlags>>();
       mockSource.mockReturnValue(deferred.promise);
       const res = render(
-        <FlagProvider flagSource={mockSource}>
-          <FlagProviderTestChild />
-        </FlagProvider>
+        <FeatureFlagProvider flagSource={mockSource}>
+          <FeatureFlagProviderTestChild />
+        </FeatureFlagProvider>
       );
       verifyDisplayedValues(res, { loading: true });
 
@@ -78,9 +78,9 @@ describe('FlagProvider tests', () => {
 
       // run
       const res = render(
-        <FlagProvider flagSource={mockSource}>
-          <FlagProviderTestChild />
-        </FlagProvider>
+        <FeatureFlagProvider flagSource={mockSource}>
+          <FeatureFlagProviderTestChild />
+        </FeatureFlagProvider>
       );
       verifyDisplayedValues(res, { loading: true, ...mockFlagBothTrue });
 
@@ -98,9 +98,11 @@ describe('FlagProvider tests', () => {
 
       // run
       const res = render(
-        <FlagProvider flagSource={mockSource} defaultValues={mockFlagBothTrue}>
-          <FlagProviderTestChild />
-        </FlagProvider>
+        <FeatureFlagProvider
+          flagSource={mockSource}
+          defaultValues={mockFlagBothTrue}>
+          <FeatureFlagProviderTestChild />
+        </FeatureFlagProvider>
       );
       verifyDisplayedValues(res, { loading: true, ...mockFlagBothTrue });
 
@@ -122,9 +124,9 @@ describe('FlagProvider tests', () => {
 
         // run
         const res = render(
-          <FlagProvider flagSource={mockSource}>
-            <FlagProviderTestChild />
-          </FlagProvider>
+          <FeatureFlagProvider flagSource={mockSource}>
+            <FeatureFlagProviderTestChild />
+          </FeatureFlagProvider>
         );
 
         // test
@@ -142,9 +144,9 @@ describe('FlagProvider tests', () => {
 
         // run
         const res = render(
-          <FlagProvider flagSource={mockSource}>
-            <FlagProviderTestChild />
-          </FlagProvider>
+          <FeatureFlagProvider flagSource={mockSource}>
+            <FeatureFlagProviderTestChild />
+          </FeatureFlagProvider>
         );
 
         // test
@@ -159,9 +161,11 @@ describe('FlagProvider tests', () => {
 
         // run
         const res = render(
-          <FlagProvider flagSource={mockSource} defaultValues={mockFlagOneTrue}>
-            <FlagProviderTestChild />
-          </FlagProvider>
+          <FeatureFlagProvider
+            flagSource={mockSource}
+            defaultValues={mockFlagOneTrue}>
+            <FeatureFlagProviderTestChild />
+          </FeatureFlagProvider>
         );
 
         // test
@@ -175,9 +179,9 @@ describe('FlagProvider tests', () => {
         const deferred = createDeferred<TFeatureFlags<MockFlags>>();
         mockSource.mockReturnValue(deferred.promise);
         const res = render(
-          <FlagProvider flagSource={mockSource}>
-            <FlagProviderTestChild />
-          </FlagProvider>
+          <FeatureFlagProvider flagSource={mockSource}>
+            <FeatureFlagProviderTestChild />
+          </FeatureFlagProvider>
         );
         verifyDisplayedValues(res, { loading: true });
 
@@ -199,9 +203,9 @@ describe('FlagProvider tests', () => {
 
         // run
         const res = render(
-          <FlagProvider flagSource={mockSource}>
-            <FlagProviderTestChild />
-          </FlagProvider>
+          <FeatureFlagProvider flagSource={mockSource}>
+            <FeatureFlagProviderTestChild />
+          </FeatureFlagProvider>
         );
         verifyDisplayedValues(res, { loading: true, ...mockFlagBothTrue });
 
@@ -219,11 +223,11 @@ describe('FlagProvider tests', () => {
 
         // run
         const res = render(
-          <FlagProvider
+          <FeatureFlagProvider
             flagSource={mockSource}
             defaultValues={mockFlagBothTrue}>
-            <FlagProviderTestChild />
-          </FlagProvider>
+            <FeatureFlagProviderTestChild />
+          </FeatureFlagProvider>
         );
         verifyDisplayedValues(res, { loading: true, ...mockFlagBothTrue });
 
@@ -244,9 +248,9 @@ describe('FlagProvider tests', () => {
 
       // run
       const res = render(
-        <FlagProvider flagSource={mockSource} obfuscateCache>
-          <FlagProviderTestChild />
-        </FlagProvider>
+        <FeatureFlagProvider flagSource={mockSource} obfuscateCache>
+          <FeatureFlagProviderTestChild />
+        </FeatureFlagProvider>
       );
       verifyDisplayedValues(res, { loading: true });
 
@@ -272,12 +276,12 @@ describe('FlagProvider tests', () => {
 
       // run
       const res = render(
-        <FlagProvider
+        <FeatureFlagProvider
           flagSource={mockSource}
           obfuscateCache
           flagKeys={flagKeysMutable}>
-          <FlagProviderTestChild />
-        </FlagProvider>
+          <FeatureFlagProviderTestChild />
+        </FeatureFlagProvider>
       );
       verifyDisplayedValues(res, { loading: true, ...mockFlagBothFalse });
 
@@ -301,9 +305,9 @@ describe('FlagProvider tests', () => {
 
       // run
       const res = render(
-        <FlagProvider flagSource={mockSource} refetchOnChange={[true]}>
-          <FlagProviderTestChild />
-        </FlagProvider>
+        <FeatureFlagProvider flagSource={mockSource} refetchOnChange={[true]}>
+          <FeatureFlagProviderTestChild />
+        </FeatureFlagProvider>
       );
 
       await waitFor(() => res.getByText('loading:false'));
@@ -313,9 +317,9 @@ describe('FlagProvider tests', () => {
       });
       expect(mockSource).toBeCalledTimes(1);
       res.rerender(
-        <FlagProvider flagSource={mockSource} refetchOnChange={[false]}>
-          <FlagProviderTestChild />
-        </FlagProvider>
+        <FeatureFlagProvider flagSource={mockSource} refetchOnChange={[false]}>
+          <FeatureFlagProviderTestChild />
+        </FeatureFlagProvider>
       );
 
       // test
@@ -329,12 +333,12 @@ describe('FlagProvider tests', () => {
 
       // run
       const res = render(
-        <FlagProvider
+        <FeatureFlagProvider
           flagSource={mockSource}
           obfuscateCache
           flagKeys={flagKeysMutable}>
-          <FlagProviderTestChild />
-        </FlagProvider>
+          <FeatureFlagProviderTestChild />
+        </FeatureFlagProvider>
       );
       verifyDisplayedValues(res, { loading: true, ...mockFlagBothFalse });
 
@@ -353,10 +357,10 @@ describe('FlagProvider tests', () => {
 
   test('should throw an error when identify is called before initializing', async () => {
     try {
-      render(<FlagProviderTestChild />);
+      render(<FeatureFlagProviderTestChild />);
       fail();
     } catch (err: any) {
-      expect(err.message).toContain('FlagProvider not initialized yet');
+      expect(err.message).toContain('FeatureFlagProvider not initialized yet');
     }
   });
 

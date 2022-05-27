@@ -1,17 +1,19 @@
 import { IFeatureFlagContext, IUseFeatureFlagHookProps } from '../types';
 import { FeatureFlagReactContext } from '../constants';
 import React, { PropsWithChildren } from 'react';
-import { useFeatureFlagProvider } from '../hooks/hooks';
+import { useFeatureFeatureFlagProvider } from '../hooks/hooks';
 
-export function FlagProvider<KEYS extends string, PROPS extends string>({
+export function FeatureFlagProvider<KEYS extends string, PROPS extends string>({
   children,
   ...props
 }: PropsWithChildren<IUseFeatureFlagHookProps<KEYS, PROPS>>) {
-  const context = useFeatureFlagProvider(props);
-  return <FlagProviderRaw {...context}>{children}</FlagProviderRaw>;
+  const context = useFeatureFeatureFlagProvider(props);
+  return (
+    <FeatureFlagProviderRaw {...context}>{children}</FeatureFlagProviderRaw>
+  );
 }
 
-export const FlagProviderRaw: React.FC<IFeatureFlagContext<any>> = ({
+export const FeatureFlagProviderRaw: React.FC<IFeatureFlagContext<any>> = ({
   flags,
   identify,
   loading,
