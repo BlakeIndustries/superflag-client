@@ -12,6 +12,22 @@ esbuild
     ],
     bundle: true,
     outdir: 'build',
+    external: [
+      // peer deps
+      'react',
+      'react-dom',
+      // node internals for axios
+      'http',
+      'https',
+      'util',
+      'path',
+      'url',
+      'zlib',
+      'fs',
+      'stream',
+      'debug',
+      'assert',
+    ],
   })
   .catch((err) => {
     console.error('esbuild error', err);
