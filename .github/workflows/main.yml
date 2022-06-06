@@ -9,6 +9,11 @@ jobs:
     steps:
       - name: Check out repository code
         uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: 'npm'
+          registry-url: 'https://registry.npmjs.org'
       - run: yarn
       - name: Run Tests
         run: yarn test
@@ -18,3 +23,5 @@ jobs:
         run: yarn ci:build
       - name: publish
         run: yarn ci:publish-package
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
