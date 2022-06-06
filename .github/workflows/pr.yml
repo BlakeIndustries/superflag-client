@@ -11,10 +11,15 @@ jobs:
   Build-And-Test:
     runs-on: ubuntu-latest
     steps:
-      - uses: ./github/workflows/core
-  Commit-Changes:
-    runs-on: ubuntu-latest
-    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v3
+      - run: yarn
+      - name: Run Tests
+        run: yarn test
+      - name: Docgen
+        run: yarn ci:build:docs
+      - name: build
+        run: yarn ci:build
       - name: commit
         run: git commit -am 'AUTO - docs changes'
       - name: push
