@@ -1,0 +1,16 @@
+name: main build
+on:
+  workflow_call:
+    secrets: inherit
+jobs:
+  Build-And-Test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v3
+      - name: Run Tests
+        run: yarn test
+      - name: Docgen
+        run: yarn ci:build:docs
+      - name: build
+        run: yarn ci:build

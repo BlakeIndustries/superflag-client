@@ -37,7 +37,7 @@ provider configured with a constant value flag source:
 ```jsx
 // ...
 import { FeatureFlagProvider } from '@superflag/client-react';
-import { ConstantFlagSource } from '@superflag/client-react/defaultSources/constant';
+import { ConstantFlagSource } from '@superflag/client-react/build/defaultSources/constant';
 
 const App = () => {
   // ...
@@ -75,7 +75,7 @@ import {
   FeatureFlagProviderRaw,
   useFeatureFlagProvider,
 } from '@superflag/client-react';
-import { ConstantFlagSource } from '@superflag/client-react/defaultSources/constant';
+import { ConstantFlagSource } from '@superflag/client-react/build/defaultSources/constant';
 
 const App = () => {
   const flagContext = useFeatureFlagProvider({

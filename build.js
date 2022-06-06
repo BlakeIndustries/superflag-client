@@ -1,35 +1,41 @@
 const esbuild = require('esbuild');
 const { pnpPlugin } = require('@yarnpkg/esbuild-plugin-pnp');
 
-esbuild
-  .build({
-    plugins: [pnpPlugin()],
-    entryPoints: [
-      'src/index.ts',
-      'src/defaultSources/constant/index.ts',
-      'src/defaultSources/webRequest/index.ts',
-      'src/defaultSources/launchDarkly/index.ts',
-    ],
-    bundle: true,
-    outdir: 'build',
-    external: [
-      // peer deps
-      'react',
-      'react-dom',
-      // node internals for axios
-      'http',
-      'https',
-      'util',
-      'path',
-      'url',
-      'zlib',
-      'fs',
-      'stream',
-      'debug',
-      'assert',
-    ],
-  })
-  .catch((err) => {
-    console.error('esbuild error', err);
-    process.exit(1);
+function buildOneType(entryPoints, format, outFolder) {
+  esbuild
+    .build({
+      plugins: [pnpPlugin()],
+      entryPoints: entryPoints,
+      bundle: true,
+      outfile: `build${outFolder ? '/' + outFolder : ''}/index.${format}.js`,
+      format: format,
+      external: [
+        // peer deps
+        'react',
+        'react-dom',
+      ],
+    })
+    .catch((err) => {
+      console.error('esbuild error', err);
+      process.exit(1);
+    });
+}
+
+function buildBothTypes(entryPoints, outFolder) {
+  buildOneType(entryPoints, 'esm', outFolder);
+  buildOneType(entryPoints, 'cjs', outFolder);
+}
+
+function buildDefaultSources(sources) {
+  sources.map((source) => {
+    buildBothTypes(
+      [`src/defaultSources/${source}/index.ts`],
+      'defaultSources/' + source
+    );
   });
+}
+
+// build commands
+buildBothTypes(['src/index.ts']);
+
+buildDefaultSources(['constant', 'webRequest', 'launchDarkly']);

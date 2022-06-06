@@ -1,0 +1,21 @@
+name: PR build
+on:
+  pull_request:
+    types: [opened]
+  push:
+    branches-ignore:
+      - 'main'
+      - 'dev'
+      - 'release'
+jobs:
+  Build-And-Test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: ./github/workflows/core
+  Commit-Changes:
+    runs-on: ubuntu-latest
+    steps:
+      - name: commit
+        run: git commit -am 'AUTO - docs changes'
+      - name: push
+        run: git push
