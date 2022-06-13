@@ -13,6 +13,8 @@ jobs:
     steps:
       - name: Check out repository code
         uses: actions/checkout@v3
+      - run: git config --global user.email "docs-bot@superflag.io"
+      - run: git config --global user.name "Docs Bot"
       - uses: actions/setup-node@v3
         with:
           node-version: 16
