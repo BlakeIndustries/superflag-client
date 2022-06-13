@@ -1,6 +1,6 @@
 {
   "name": "@superflag/client-react",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "",
   "scripts": {
     "test": "jest",
@@ -14,8 +14,8 @@
     "ci:publish-package": "npm publish"
   },
   "files": [
-    "**/*.cjs.js",
-    "**/*.esm.js",
+    "**/*.cjs",
+    "**/*.mjs",
     "**/*.d.ts"
   ],
   "publishConfig": {
