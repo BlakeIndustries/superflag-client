@@ -11,4 +11,17 @@ module.exports = {
     browser: true,
     jest: true,
   },
+  rules: {
+    'jsdoc/require-param': [
+      'error' | 'warn',
+      { checkDestructuredRoots: false },
+    ],
+    'jsdoc/require-jsdoc': [
+      'error' | 'warn',
+      { publicOnly: { ancestorsOnly: true } },
+    ],
+    'jsdoc/require-param-type': 'off',
+    'jsdoc/require-returns-type': 'off',
+    'jsdoc/check-tag-names': 'off',
+  },
 };

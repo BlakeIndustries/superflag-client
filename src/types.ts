@@ -11,6 +11,7 @@ export type TIdentifierFunction<PROPS extends string = any> = (
 
 /**
  * The working context of the feature flag system
+ *
  * @typeParam KEYS the union of all possible feature flag keys.
  *   E.g. `'useV2ui' | 'useNewPaymentGateway' | ...`
  * @typeParam PROPS the union of all expected props on the user identifier object.
@@ -34,6 +35,7 @@ export interface IFeatureFlagContext<
 
 /**
  * The set of arguments needed to manage feature flag state
+ *
  * @typeParam KEYS the union of all possible feature flag keys.
  *   E.g. `'useV2ui' | 'useNewPaymentGateway' | ...`
  * @typeParam PROPS the union of all expected props on the user identifier object.
@@ -85,6 +87,7 @@ export interface IUseFeatureFlagHookProps<
 /**
  * Defines a source of feature flags. This serves as an extensibility point
  * where anyone can implement their own flag source if they desire.
+ *
  * @typeParam KEYS the union of all possible feature flag keys.
  *   E.g. `'useV2ui' | 'useNewPaymentGateway' | ...`
  * @typeParam PROPS the union of all expected props on the user identifier object.
@@ -95,12 +98,18 @@ export interface IFeatureFlagSource<
   PROPS extends string = string
 > {
   /**
+   * Whether to fetch the flags on init without waiting for identify to be called
+   */
+  fetchOnInit?: boolean;
+
+  /**
    * An initialization function that is called once upon initialization
    */
   init?(): Promise<void>;
 
   /**
    * Async function that fetches flags from a flag source
+   *
    * @param userInfo the props needed to identify a user enough to find the correct flags
    */
   fetchFlags(

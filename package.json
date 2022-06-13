@@ -1,21 +1,22 @@
 {
   "name": "@superflag/client-react",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "",
   "scripts": {
     "test": "jest",
     "coverage-img": "yarn coverage-shield -r coverage/clover.xml -d static",
     "build:clean": "rm -rf build",
-    "build": "yarn build:clean && tsc --project tsconfig.json",
+    "build": "yarn build:clean && node build.js && tsc --project tsconfig.json",
     "build:docs": "yarn test && yarn run coverage-img && yarn typedoc && mkdir -p docs/static && cp static/coverage.svg docs/static",
     "publish-package": "yarn test && yarn build && yarn build:docs && npm publish",
     "ci:build:docs": "yarn run coverage-img && yarn typedoc && mkdir -p docs/static && cp static/coverage.svg docs/static",
     "ci:build": "yarn build:clean && node ./build.js && tsc --emitDeclarationOnly --project tsconfig.json",
     "ci:publish-package": "npm publish"
   },
-  "main": "build/index.js",
   "files": [
-    "build"
+    "**/*.cjs.js",
+    "**/*.esm.js",
+    "**/*.d.ts"
   ],
   "publishConfig": {
     "access": "public"
