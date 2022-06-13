@@ -7,7 +7,13 @@ function buildOneType(entryPoints, format, outFolder) {
       plugins: [pnpPlugin()],
       entryPoints: entryPoints,
       bundle: true,
-      outfile: `build${outFolder ? '/' + outFolder : ''}/index.${format}.js`,
+      outfile: [
+        // 'build',
+        outFolder || '',
+        `index.${format === 'esm' ? 'mjs' : format}`,
+      ]
+        .filter((segment) => !!segment)
+        .join('/'),
       format: format,
       external: [
         // peer deps
