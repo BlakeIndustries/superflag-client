@@ -13,7 +13,6 @@
     "ci:build": "yarn build:clean && node ./build.js && tsc --emitDeclarationOnly --project tsconfig.json",
     "ci:publish-package": "npm publish"
   },
-  "main": "index.cjs",
   "files": [
     "**/*.cjs.js",
     "**/*.esm.js",
